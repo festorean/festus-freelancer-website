@@ -94,7 +94,7 @@
   <section id="about" class="fade-in">
     <h2>About Me</h2>
     <div style="display:flex; flex-wrap:wrap; align-items:center; gap:20px;">
-      <img src="Gemini_Generated_Image_9do44v9do44v9do4.png" alt="Festus Adebayo" style="width:180px; height:180px; border-radius:50%; object-fit:cover; box-shadow:0 4px 10px rgba(0,0,0,0.2);" />
+      <img src="profile.jpg" alt="Festus Adebayo" style="width:180px; height:180px; border-radius:50%; object-fit:cover; box-shadow:0 4px 10px rgba(0,0,0,0.2);" />
       <p style="flex:1; min-width:250px;">I'm Festus Adebayo, a dedicated freelancer specializing in lead generation and virtual assistance. I deliver accurate work, fast turnaround, and professional communication. I use tools including Apollo, Hunter, LinkedIn, Excel, Google Sheets, CRM systems, and automation tools to deliver the best results.</p>
     </div>
   </section>
@@ -103,7 +103,7 @@
     <h2>Contact Me</h2>
     <p>Fill the form below and your message will be delivered to my email instantly.</p>
 
-    <form action=https://formspree.io/f/mdkqzdwk" method="POST" style="max-width:500px; margin:auto; text-align:left; background:white; padding:20px; border-radius:12px; color:#000;">
+    <form action="https://formspree.io/f/mdkqzdwk" method="POST" style="max-width:500px; margin:auto; text-align:left; background:white; padding:20px; border-radius:12px; color:#000;">
       <label>Name</label>
       <input type="text" name="name" required style="width:100%; padding:10px; margin:8px 0; border-radius:6px; border:1px solid #ccc;" />
 
@@ -115,6 +115,46 @@
 
       <button type="submit" style="width:100%; padding:12px; background:#ffcc00; color:#0a1a3f; font-weight:bold; border:none; border-radius:6px; cursor:pointer;">Send Message</button>
     </form>
+
+    <!-- Success & Error Messages -->
+    <div id="form-status" style="display:none; margin-top:20px; padding:15px; border-radius:8px; font-weight:bold;"></div>
+
+    <script>
+      const form = document.querySelector("form");
+      const statusBox = document.getElementById("form-status");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        statusBox.style.display = "block";
+        statusBox.style.background = "#fff3cd";
+        statusBox.style.color = "#856404";
+        statusBox.innerHTML = "⏳ Sending your message…";
+
+        let data = new FormData(form);
+
+        try {
+          let response = await fetch(form.action, {
+            method: "POST",
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            statusBox.style.background = "#d4edda";
+            statusBox.style.color = "#155724";
+            statusBox.innerHTML = "✅ Message sent successfully! I'll get back to you soon.";
+            form.reset();
+          } else {
+            throw new Error();
+          }
+
+        } catch (error) {
+          statusBox.style.background = "#f8d7da";
+          statusBox.style.color = "#721c24";
+          statusBox.innerHTML = "❌ Something went wrong. Please try again!";
+        }
+      });
+    </script>
   </section>
 
   <footer>
